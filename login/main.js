@@ -163,6 +163,12 @@ passwordEye.addEventListener('click', function () {
 });
 
 
+//for pervent back btn of browser
+function preventBack() { window.history.forward(); }
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+
+
 
 
 form.addEventListener('submit', (e) => {

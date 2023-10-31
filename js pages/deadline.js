@@ -51,6 +51,7 @@ async function showDeadlines(id) {
       const student = {
         DueDate: students[i]['Due Date'],
         Amount: students[i].Amount,
+        paidAmount : students[i]['Paid amount'],
         Status: students[i].Status,
       };
 
@@ -61,10 +62,11 @@ async function showDeadlines(id) {
       newRow.innerHTML = `
         <td>${student.DueDate}</td>
         <td>${student.Amount}</td>
+        <td>${students[i]['Paid amount']}</td>
         
         <td>
           <button id="payBtn" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            pay now!
+            Pay Now
           </button>
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="alertMsg"></div>
@@ -154,21 +156,25 @@ async function showDeadlines(id) {
       const payBtn = newRow.querySelector('#payBtn');
       const first = tableBody.children[0]
       console.log(first);
+      const remainingAmount = students[i].Amount - students[i]['Paid amount']
 
       // const btndanger = newRow.querySelector('.btn-danger');
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
       if (student.Status === "paid") {
-        payBtn.innerText = 'Paid';
+        payBtn.innerText = "Paid";
         // const renderedText = htmlElement.innerText;
         payBtn.disabled = true;
-        payBtn.classList.add('btn-success');
+        payBtn.classList.add("btn-success");
+      } else if (student.Status === "Portion Paid") {
+        payBtn.innerText = "Portion Paid";
+        payBtn.classList.add("btn-warning");
+        floatingInput.value = remainingAmount;
       } else {
-        payBtn.classList.add('btn-danger');
+        payBtn.classList.add("btn-danger");
         // floatingInput.value = students[i].Amount
         // SelectDueDate.value=students[i]['Due Date']
-
       }
-
+      
       // Add a click event listener to the button.
       payBtn.addEventListener('click', () => {
         //import any data 
@@ -193,6 +199,9 @@ async function showDeadlines(id) {
         Scholarship.value = ScholarshipToPass;
         Reception.value = ReceptionistToPass;
         StudyType.value = groupToPass;
+        if (student.Status === "Portion Paid") {
+          floatingInput.value = remainingAmount;
+        }
 
 
         
