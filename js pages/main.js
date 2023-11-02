@@ -234,6 +234,8 @@ async function display(value) {
     sessionStorage.setItem("groupToPass", groupToPass);
 
   });
+    
+    
 
   // **Store the ID of the user to be passed to the other page outside of the forEach() loop**
 
@@ -522,9 +524,9 @@ jQuery('#digitalId').on('submit', function (e) {
 const alertMsg = document.querySelector('.alertMsg');
 
 const digitalIdBtn = document.querySelector('.digitalIdBtn');
-if (userRole === "System") {
-  digitalIdBtn.style.display = "none";
-}
+// if (userRole === "System") {
+//   digitalIdBtn.style.display = "none";
+// }
 
 digitalIdBtn.addEventListener('click', () => {
   // Get the id from session storage.
@@ -621,11 +623,12 @@ jQuery('#App').on('submit', function (e) {
   });
 });
 
+// access for role
 const appBtn = document.querySelector('.appBtn');
-console.log(userRole);
-if (userRole === "System") {
-  appBtn.style.display = "none";
-}
+// console.log(userRole);
+// if (userRole === "System") {
+//   appBtn.style.display = "none";
+// }
 
 appBtn.addEventListener('click', () => {
   // Get the id from session storage.

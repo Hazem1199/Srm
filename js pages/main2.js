@@ -297,7 +297,7 @@ payBtnInvoice.addEventListener('click', () => {
     const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
     const groupToPass = sessionStorage.getItem("groupToPass");
 
-    console.log(id , ScholarshipToPass , ReceptionistToPass);
+    console.log(id , ScholarshipToPass , ReceptionistToPass ,groupToPass );
 
     // Get the "SelectDueDate" element. 
     const StudentNUM = document.querySelector('#StudentNUM');

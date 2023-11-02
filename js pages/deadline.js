@@ -203,6 +203,15 @@ async function showDeadlines(id) {
           floatingInput.value = remainingAmount;
         }
 
+        const Deadline1 = document.querySelector('#Deadline1');
+        const Deadline2 = document.querySelector('#Deadline2');
+        const Deadline3 = document.querySelector('#Deadline3');
+        const Deadline4 = document.querySelector('#Deadline4');
+        Deadline1.value = students[i].Amount
+        Deadline2.value = students[i].Amount
+        Deadline3.value = students[i].Amount
+        Deadline4.value = students[i].Amount
+
 
         
         if (first) {

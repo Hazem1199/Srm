@@ -1,4 +1,5 @@
 var loadingDiv = document.querySelector('.loading-div')
+var searchButton = document.querySelector(".search-button");
 
 var overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -22,22 +23,22 @@ function hide() {
   loadingDiv.style.display = "none";
 }
 
+// const baseUrl = 'https://script.google.com/macros/s/AKfycbyBpgJd3o4DNSd7korkuPXGRSGh6ryS-fPRY0N1XRivyiHDw-U7YXz65VzuUdJ3i7Bk/exec';
+// let url = baseUrl;
+// if (id) {
+//     url += `?id=${id}`;
+// }
+// const response = await fetch(url);
+// if (!response.ok) {
+//     throw new Error(`Failed to fetch data from API: ${response.status}`);
+// } else {
+//     console.log("fetch Done");
+//     const data = await response.json();
+//     return data;
+// }
+
+
 async function getInfoGroup(id) {
-  // const baseUrl = 'https://script.google.com/macros/s/AKfycbyBpgJd3o4DNSd7korkuPXGRSGh6ryS-fPRY0N1XRivyiHDw-U7YXz65VzuUdJ3i7Bk/exec';
-  // let url = baseUrl;
-  // if (id) {
-  //     url += `?id=${id}`;
-  // }
-  // const response = await fetch(url);
-  // if (!response.ok) {
-  //     throw new Error(`Failed to fetch data from API: ${response.status}`);
-  // } else {
-  //     console.log("fetch Done");
-  //     const data = await response.json();
-  //     return data;
-  // }
-
-
   const response = await fetch('https://script.google.com/macros/s/AKfycbwAIsY5c7ebcjrDN58-l097iqHF-_Rd6gChIbA4rcKggLD0qgVP95fgm2oHS8FjhxM5Iw/exec', {
     method: 'POST',
     body: JSON.stringify({ "id": id })
@@ -45,7 +46,6 @@ async function getInfoGroup(id) {
   var data = await response.json();
   console.log(data);
   return data;
-
 }
 
 
@@ -153,7 +153,10 @@ async function showAllGroup(id) {
         let attendance = student[attendanceProp];
 
 
-
+        // Save the group and formattedDate to session storage
+        sessionStorage.setItem('group', group);
+        sessionStorage.setItem('formattedDate', formattedDate);
+        console.log(group);
 
 
         row.innerHTML = `
@@ -180,7 +183,7 @@ async function showAllGroup(id) {
         }
       }
       // save group value to pass it to deadline form 
-      
+
 
     })
     hide()
