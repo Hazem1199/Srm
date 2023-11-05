@@ -51,11 +51,11 @@ async function showDeadlines(id) {
       const student = {
         DueDate: students[i]['Due Date'],
         Amount: students[i].Amount,
-        paidAmount : students[i]['Paid amount'],
+        paidAmount: students[i]['Paid amount'],
         Status: students[i].Status,
       };
 
-      pushObj.push(students[i]['Due Date'])
+      pushObj.push(students[i].Amount)
       console.log(pushObj);
       const newRow = document.createElement('tr');
       console.log(student.DueDate);
@@ -174,7 +174,7 @@ async function showDeadlines(id) {
         // floatingInput.value = students[i].Amount
         // SelectDueDate.value=students[i]['Due Date']
       }
-      
+
       // Add a click event listener to the button.
       payBtn.addEventListener('click', () => {
         //import any data 
@@ -203,17 +203,25 @@ async function showDeadlines(id) {
           floatingInput.value = remainingAmount;
         }
 
-        const Deadline1 = document.querySelector('#Deadline1');
-        const Deadline2 = document.querySelector('#Deadline2');
-        const Deadline3 = document.querySelector('#Deadline3');
-        const Deadline4 = document.querySelector('#Deadline4');
-        Deadline1.value = students[i].Amount
-        Deadline2.value = students[i].Amount
-        Deadline3.value = students[i].Amount
-        Deadline4.value = students[i].Amount
+        // const Deadline1 = document.querySelector('#Deadline1');
+        // const Deadline2 = document.querySelector('#Deadline2');
+        // const Deadline3 = document.querySelector('#Deadline3');
+        // const Deadline4 = document.querySelector('#Deadline4');
+        // const Deadline5 = document.querySelector('#Deadline5');
+        // Deadline1.value = students[i].Amount
+        // Deadline2.value = students[i].Amount
+        // Deadline3.value = students[i].Amount
+        // Deadline4.value = students[i].Amount
+        // Deadline5.value = students[i].Amount
+        // const DeadlineInputs = document.querySelectorAll('.Deadline');
+
+        // for (const input of DeadlineInputs) {
+        //   if (input.value === '' || student.Status === 'paid') {
+        //     input.style.display = 'none';
+        //   }
+        // }
 
 
-        
         if (first) {
           fresh.value = 'Student';
         } else {
@@ -224,6 +232,31 @@ async function showDeadlines(id) {
       tableBody.appendChild(newRow);
     }
   };
+
+  console.log(pushObj);
+
+  const frmSubmit = document.querySelector('#frmSubmit');
+  // Create a new div element to store the inputs
+const inputDiv = document.createElement('div');
+
+// Iterate over the pushObj array
+for (const value of pushObj) {
+  // Create a new input element
+  const Deadline = document.querySelector('.Deadline');
+
+  // Set the type of the input element to 'number'
+
+  // Set the value of the input element to the current value in the pushObj array
+  Deadline.value = value;
+  
+
+  // Append the input element to the inputDiv element
+  inputDiv.appendChild(Deadline);
+}
+
+// Append the inputDiv element to the document body
+frmSubmit.appendChild(inputDiv);
+
 
 
   const alertMsg = document.querySelector('.alertMsg');
