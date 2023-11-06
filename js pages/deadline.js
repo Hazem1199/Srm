@@ -39,6 +39,7 @@ function hide() {
 }
 
 const pushObj = [];
+const deadlineStatus = [];
 
 async function showDeadlines(id) {
   change();
@@ -48,7 +49,7 @@ async function showDeadlines(id) {
 
   for (let i = 0; i < students.length; i++) {
     if (id == students[i].ID) {
-      const student = {
+      var student = {
         DueDate: students[i]['Due Date'],
         Amount: students[i].Amount,
         paidAmount: students[i]['Paid amount'],
@@ -56,6 +57,7 @@ async function showDeadlines(id) {
       };
 
       pushObj.push(students[i].Amount)
+      deadlineStatus.push(students[i].Status)
       console.log(pushObj);
       const newRow = document.createElement('tr');
       console.log(student.DueDate);
@@ -162,6 +164,7 @@ async function showDeadlines(id) {
       // const btnoutlinesuccess = newRow.querySelector('.btn-outline-success');
       if (student.Status === "paid") {
         payBtn.innerText = "Paid";
+        // input.style.display = "none"
         // const renderedText = htmlElement.innerText;
         payBtn.disabled = true;
         payBtn.classList.add("btn-success");
@@ -203,25 +206,6 @@ async function showDeadlines(id) {
           floatingInput.value = remainingAmount;
         }
 
-        // const Deadline1 = document.querySelector('#Deadline1');
-        // const Deadline2 = document.querySelector('#Deadline2');
-        // const Deadline3 = document.querySelector('#Deadline3');
-        // const Deadline4 = document.querySelector('#Deadline4');
-        // const Deadline5 = document.querySelector('#Deadline5');
-        // Deadline1.value = students[i].Amount
-        // Deadline2.value = students[i].Amount
-        // Deadline3.value = students[i].Amount
-        // Deadline4.value = students[i].Amount
-        // Deadline5.value = students[i].Amount
-        // const DeadlineInputs = document.querySelectorAll('.Deadline');
-
-        // for (const input of DeadlineInputs) {
-        //   if (input.value === '' || student.Status === 'paid') {
-        //     input.style.display = 'none';
-        //   }
-        // }
-
-
         if (first) {
           fresh.value = 'Student';
         } else {
@@ -233,29 +217,49 @@ async function showDeadlines(id) {
     }
   };
 
-  console.log(pushObj);
+  console.log(pushObj.values());
+  console.log(student.Status);
 
-  const frmSubmit = document.querySelector('#frmSubmit');
+  const frmDiv = document.querySelector('.frmDiv');
   // Create a new div element to store the inputs
-const inputDiv = document.createElement('div');
+  const inputDiv = document.createElement('div');
 
-// Iterate over the pushObj array
-for (const value of pushObj) {
-  // Create a new input element
-  const Deadline = document.querySelector('.Deadline');
+  // Iterate over the pushObj array
+  for (const value of pushObj) {
+    // Create a new input element
+    var input = document.createElement('input');
 
-  // Set the type of the input element to 'number'
+    // Set the type of the input element to 'number'
+    input.type = 'number';
 
-  // Set the value of the input element to the current value in the pushObj array
-  Deadline.value = value;
-  
+    // Set the value of the input element to the current value in the pushObj array
+    input.value = value;
 
-  // Append the input element to the inputDiv element
-  inputDiv.appendChild(Deadline);
-}
 
-// Append the inputDiv element to the document body
-frmSubmit.appendChild(inputDiv);
+    // Append the input element to the inputDiv element
+    inputDiv.appendChild(input);
+
+    // Set the name attribute of the input element
+    input.name = 'Deadline1';
+
+    // Set the placeholder attribute of the input element
+    input.placeholder = 'Amount';
+
+    // Set the id attribute of the input element
+    input.id = 'Deadline1';
+
+    // Set the class attribute of the input element
+    input.classList.add('form-control', 'Deadline' , 'mb-3');
+
+    // Set the required attribute of the input element
+    input.required = true;
+  }
+
+  // Append the inputDiv element to the document body
+  frmDiv.appendChild(inputDiv);
+
+
+
 
 
 
