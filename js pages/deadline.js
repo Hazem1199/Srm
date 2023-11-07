@@ -38,6 +38,12 @@ function hide() {
   loadingDiv.style.display = "none";
 }
 
+
+// Initialize the counter
+let k = 0;
+
+// const k = 0
+
 const pushObj = [];
 const deadlineStatus = [];
 
@@ -214,49 +220,140 @@ async function showDeadlines(id) {
       });
 
       tableBody.appendChild(newRow);
+
+      const frmDiv = document.querySelector('.frmDiv');
+      // Create a new div element to store the inputs
+      const inputDiv = document.createElement('div');
+
+
+
+      // Iterate over the pushObj array
+      // for (const value of pushObj) {
+      // Create a new input element
+      var input = document.createElement('input');
+      var input1 = document.createElement('input');
+
+      // Set the value of the input element to the current value in the pushObj array
+      input.value = students[i].Amount;
+      input1.value = student.DueDate;
+
+
+      // Set the style width of the input element & flex
+      inputDiv.style.display = ('flex');
+      input.style.width = '50%';
+      input1.style.width = '50%';
+      input.style.marginRight = '5px';
+      input1.style.marginLeft = '5px';
+
+      // Set the type of the input element to 'number'
+      input.type = 'number';
+      // input1.type = 'Date';
+
+
+      if (student.Status === "paid") {
+        input.style.display = 'none';
+        input1.style.display = 'none';
+        // input1.disabled = true;
+
+      }
+
+
+      // Append the input element to the inputDiv element
+      inputDiv.appendChild(input);
+      inputDiv.appendChild(input1);
+
+
+      // Increment the counter
+      k++;
+      // Set the name attribute of the input element
+      input.name = 'Deadline' + [k];
+      input1.name = 'Date' + [k];
+      console.log(input.name);
+
+
+      // Set the placeholder attribute of the input element
+      input.placeholder = 'Amount';
+      input1.placeholder = 'Due Date';
+
+      // Set the id attribute of the input element
+      input.id = 'Deadline1';
+
+      // Set the class attribute of the input element
+      input.classList.add('form-control', 'Deadline', 'mb-3');
+      input1.classList.add('form-control', 'Deadline', 'mb-3');
+
+      // Set the required attribute of the input element
+      input.required = true;
+      // }  
+      // Save the value of k to local storage
+      localStorage.setItem('k', k);
+
+      // Append the inputDiv element to the document body
+      frmDiv.appendChild(inputDiv);
+
     }
   };
 
   console.log(pushObj.values());
-  console.log(student.Status);
+  console.log(deadlineStatus);
 
-  const frmDiv = document.querySelector('.frmDiv');
-  // Create a new div element to store the inputs
-  const inputDiv = document.createElement('div');
+  //supmit  frmDeadlineEdit
+  jQuery('#frmDeadlineEdit').on('submit', function (e) {
+    e.preventDefault();
+    jQuery.ajax({
+      url: 'https://script.google.com/macros/s/AKfycbyfXOwzmRZqfNg2IdrWjRRf0olXlQaUTDn2CVZ1-O1lOBFrC5KyX2epevu5DwUb9j-4ig/exec',
+      type: 'post',
+      data: jQuery('#frmDeadlineEdit').serialize(),
+      beforeSend: function () {
+        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        jQuery('#spinner-container').html(spinner);
+      },
+      success: function (result) {
+        jQuery('#frmDeadlineEdit')[0].reset();
+        // Display success message here
+        alertMsg.classList.add('alert', 'alert-success');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.margin = '20px';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Success!</strong> Payment edit successfully.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+          location.reload();
 
-  // Iterate over the pushObj array
-  for (const value of pushObj) {
-    // Create a new input element
-    var input = document.createElement('input');
+        }, 5000);
+      },
+      error: function () {
+        // Display error message here
+        alertMsg.classList.add('alert', 'alert-danger');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+        }, 2000);
+      },
+      complete: function () {
+        jQuery('#spinner-container').empty();
+      }
+    });
+  });
 
-    // Set the type of the input element to 'number'
-    input.type = 'number';
-
-    // Set the value of the input element to the current value in the pushObj array
-    input.value = value;
-
-
-    // Append the input element to the inputDiv element
-    inputDiv.appendChild(input);
-
-    // Set the name attribute of the input element
-    input.name = 'Deadline1';
-
-    // Set the placeholder attribute of the input element
-    input.placeholder = 'Amount';
-
-    // Set the id attribute of the input element
-    input.id = 'Deadline1';
-
-    // Set the class attribute of the input element
-    input.classList.add('form-control', 'Deadline' , 'mb-3');
-
-    // Set the required attribute of the input element
-    input.required = true;
-  }
-
-  // Append the inputDiv element to the document body
-  frmDiv.appendChild(inputDiv);
 
 
 
