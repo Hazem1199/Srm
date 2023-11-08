@@ -47,7 +47,8 @@ async function getInfoGroup(id) {
   console.log(data);
   return data;
 }
-
+// Initialize the counter
+let k = 0;
 
 
 async function showAllGroup(id) {
@@ -138,7 +139,7 @@ async function showAllGroup(id) {
         const date = new Date(student[dateProp]);
         // date.setDate(date.getDate() - 1);
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const formattedDate = date.toLocaleDateString(undefined, options);
+        let formattedDate = date.toLocaleDateString(undefined, options);
         // let newDate = new Date(student[dateProp]);
         // newDate.setDate(newDate.getDate() + i);
 
@@ -157,14 +158,15 @@ async function showAllGroup(id) {
         sessionStorage.setItem('group', group);
         sessionStorage.setItem('formattedDate', formattedDate);
         console.log(group);
+        console.log(formattedDate);
 
 
         row.innerHTML = `
-                  <td>${formattedDate}</td>
-                  <td>${group}</td>
-                  <td>${module}</td>
-                  <td>${grade}</td>
-                  <td>${attendance}</td>
+                  <td class = "divTableCell">${formattedDate}</td>
+                  <td class = "divTableCell">${group}</td>
+                  <td class = "divTableCell">${module}</td>
+                  <td class = "divTableCell">${grade}</td>
+                  <td class = "divTableCell">${attendance}</td>
                 `
         // Check if the row is empty
         let isEmpty = true;
@@ -181,9 +183,84 @@ async function showAllGroup(id) {
           // Append the row to the table
           document.querySelector('.divTableBody').appendChild(row);
         }
+
+        const frmDiv1 = document.querySelector('.frmDiv1');
+      // Create a new div element to store the inputs
+      const inputDiv = document.createElement('div');
+
+      const groupp = sessionStorage.getItem('group')
+      const formattedDatee = sessionStorage.getItem('formattedDate')
+
+
+
+      // Iterate over the pushObj array
+      // for (const value of pushObj) {
+      // Create a new input element
+      const input = document.createElement('input');
+      const input1 = document.createElement('input');
+
+      // Set the value of the input element to the current value in the pushObj array
+      input.value = groupp;
+      input1.value = formattedDatee;
+
+
+      // Set the style width of the input element & flex
+      inputDiv.style.display = ('flex');
+      input.style.width = '50%';
+      input1.style.width = '50%';
+      input.style.marginRight = '5px';
+      input1.style.marginLeft = '5px';
+
+      // Set the type of the input element to 'number'
+      input.type = 'number';
+      // input1.type = 'Date';
+
+
+      // if (student.Status === "paid") {
+      //   input.style.display = 'none';
+      //   input1.style.display = 'none';
+      //   // input1.disabled = true;
+
+      // }
+
+
+      // Append the input element to the inputDiv element
+      inputDiv.appendChild(input);
+      inputDiv.appendChild(input1);
+
+
+      // Increment the counter
+      k++;
+      // Set the name attribute of the input element
+      input.name = 'Deadline' + [k];
+      input1.name = 'Date' + [k];
+      console.log(input.name);
+
+
+      // Set the placeholder attribute of the input element
+      input.placeholder = 'Amount';
+      input1.placeholder = 'Due Date';
+
+      // Set the id attribute of the input element
+      input.id = 'Deadline1';
+
+      // Set the class attribute of the input element
+      input.classList.add('form-control', 'Deadline', 'mb-3');
+      input1.classList.add('form-control', 'Deadline', 'mb-3');
+
+      // Set the required attribute of the input element
+      input.required = true;
+      // }  
+      // Save the value of k to local storage
+      localStorage.setItem('k', k);
+
+      // Append the inputDiv element to the document body
+      frmDiv1.appendChild(inputDiv);
+
       }
       // save group value to pass it to deadline form 
 
+      
 
     })
     hide()
