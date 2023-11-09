@@ -138,8 +138,8 @@ async function showAllGroup(id) {
         let dateProp = `Date${i}`;
         const date = new Date(student[dateProp]);
         // date.setDate(date.getDate() - 1);
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        let formattedDate = date.toLocaleDateString(undefined, options);
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        let formattedDate = date.toLocaleDateString('en-GB', options);
         // let newDate = new Date(student[dateProp]);
         // newDate.setDate(newDate.getDate() + i);
 
@@ -216,12 +216,12 @@ async function showAllGroup(id) {
       // input1.type = 'Date';
 
 
-      // if (student.Status === "paid") {
-      //   input.style.display = 'none';
-      //   input1.style.display = 'none';
-      //   // input1.disabled = true;
+      if (grade) {
+        input.style.display = 'none';
+        input1.style.display = 'none';
+        // input1.disabled = true;
 
-      // }
+      }
 
 
       // Append the input element to the inputDiv element
@@ -232,8 +232,8 @@ async function showAllGroup(id) {
       // Increment the counter
       k++;
       // Set the name attribute of the input element
-      input.name = 'Deadline' + [k];
-      input1.name = 'Date' + [k];
+      input.name = 'Group' + [k];
+      input1.name = 'GroupDate' + [k];
       console.log(input.name);
 
 
@@ -242,11 +242,11 @@ async function showAllGroup(id) {
       input1.placeholder = 'Due Date';
 
       // Set the id attribute of the input element
-      input.id = 'Deadline1';
+      input.id = 'Group';
 
       // Set the class attribute of the input element
-      input.classList.add('form-control', 'Deadline', 'mb-3');
-      input1.classList.add('form-control', 'Deadline', 'mb-3');
+      input.classList.add('form-control', 'Group', 'mb-3');
+      input1.classList.add('form-control', 'Group', 'mb-3');
 
       // Set the required attribute of the input element
       input.required = true;
@@ -268,6 +268,68 @@ async function showAllGroup(id) {
     console.log(error);
   }
 }
+
+
+const alertMsg = document.querySelector('.alertMsg');
+
+  //supmit  frmGroupEdit
+  jQuery('#frmModuleEdit').on('submit', function (e) {
+    e.preventDefault();
+    jQuery.ajax({
+      url: 'https://script.google.com/macros/s/AKfycbwe6pqKwdyIsqXBIhLLUlZBwKcGacB2txW2hCIGQv5jbiqI_HpJesmnTTr2sKYYYsLSsg/exec',
+      type: 'post',
+      data: jQuery('#frmModuleEdit').serialize(),
+      beforeSend: function () {
+        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        jQuery('#spinner-container').html(spinner);
+      },
+      success: function (result) {
+        jQuery('#frmModuleEdit')[0].reset();
+        // Display success message here
+        alertMsg.classList.add('alert', 'alert-success');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.margin = '20px';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Success!</strong> Payment edit successfully.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+          location.reload();
+
+        }, 5000);
+      },
+      error: function () {
+        // Display error message here
+        alertMsg.classList.add('alert', 'alert-danger');
+        alertMsg.style.width = '25%';
+        alertMsg.style.position = 'fixed';
+        alertMsg.style.top = '0';
+        alertMsg.style.left = '0';
+        alertMsg.style.transition = "all 0.5s ease-in-out";
+        alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+        alertMsg.style.display = "block";
+        alertMsg.style.opacity = "0";
+        setTimeout(function () {
+          alertMsg.style.opacity = "1";
+        }, 10);
+        setTimeout(function () {
+          alertMsg.style.display = "none";
+        }, 2000);
+      },
+      complete: function () {
+        jQuery('#spinner-container').empty();
+      }
+    });
+  });
+
+
 
 // let row = document.createElement('div');
 // row.classList.add('divTableRow');

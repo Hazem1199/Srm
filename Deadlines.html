@@ -12,9 +12,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-    crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
 
 
 
@@ -148,10 +151,20 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                      <div class="dropdown mb-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                          Change Type Payment
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><button class="dropdown-item cash" >cash</button></li>
+                          <li><button class="dropdown-item months" >2 months</button></li>
+                          <li><button class="dropdown-item month-brefore-semester" >month brefore semester</button></li>
+                        </ul>
+                      </div>
 
                       <form method="POST" id="frmDeadlineEdit">
                         <div class="form-group form-floating mb-3 frmDiv ">
-                      <!-- code come from iterate of pushObj -->
+                          <!-- code come from iterate of pushObj -->
                         </div>
 
                         <!-- display : none  -->
@@ -271,6 +284,7 @@
       crossorigin="anonymous"></script> -->
 
     <script src="./bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
+    <script src="./bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- <script src="./js pages/main.js"></script> -->
     <script src="./js pages/deadline.js"></script>

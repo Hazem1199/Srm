@@ -230,8 +230,12 @@ async function showDeadlines(id) {
       // Iterate over the pushObj array
       // for (const value of pushObj) {
       // Create a new input element
-      var input = document.createElement('input');
-      var input1 = document.createElement('input');
+      const input = document.createElement('input');
+      const input1 = document.createElement('input');
+      const dropdown = document.querySelector('.dropdown');
+      const cashOption = dropdown.querySelector('.cash');
+      const monthsOption = dropdown.querySelector('.months');
+
 
       // Set the value of the input element to the current value in the pushObj array
       input.value = students[i].Amount;
@@ -254,13 +258,99 @@ async function showDeadlines(id) {
         input.style.display = 'none';
         input1.style.display = 'none';
         // input1.disabled = true;
-
       }
+
+      //handle cash option 
+      cashOption.addEventListener('click', () => {
+        // Hide all input fields.
+        const inputs = document.querySelectorAll('input');
+        for (const input of inputs) {
+          input.style.display = 'none';
+          // input1.style.display = 'none';
+          input.disabled = true;
+          // input1.disabled = true;
+          // break;
+        }
+        // Enable the new input and input1 fields.
+        input.disabled = false;
+        input1.disabled = false;
+
+        input1.type = 'Date';
+
+
+        input.style.display = 'block';
+        input1.style.display = 'block';
+
+        input.value = ""
+        input1.value = ""
+
+        input.name = 'Deadline1';
+        input1.name = 'Date1';
+
+      });
+
+      //handle cash option 
+      // monthsOption.addEventListener('click', () => {
+      //   // Hide all input fields.
+      //   const inputs = document.querySelectorAll('input');
+      //   for (const input of inputs) {
+      //     input.style.display = 'none';
+      //     // input1.style.display = 'none';
+      //     input.disabled = true;
+      //     // input1.disabled = true;
+      //     // break;
+      //   }
+
+      //   // Enable the new input and input1 fields.
+      //   input.disabled = false;
+      //   input1.disabled = false;
+
+      //   for (let i = 0; i <= 4; i++) {
+
+      //     const input = document.createElement('input');
+      //     const input1 = document.createElement('input');
+
+
+      //     // Set the style width of the input element & flex
+      //     inputDiv.style.display = ('flex');
+      //     input.style.width = '50%';
+      //     input1.style.width = '50%';
+      //     input.style.marginRight = '5px';
+      //     input1.style.marginLeft = '5px';
+
+
+
+      //     // input.style.display = 'block';
+      //     // input1.style.display = 'block';
+
+      //     input1.type = 'Date';
+
+      //     input.value = ""
+      //     input1.value = ""
+
+      //     input.name = 'Deadline1';
+      //     input1.name = 'Date1';
+
+
+      //     // Set the class attribute of the input element
+      //     input.classList.add('form-control', 'Deadline', 'mb-3');
+      //     input1.classList.add('form-control', 'Deadline', 'mb-3');
+
+
+      //     inputDiv.appendChild(input);
+      //     inputDiv.appendChild(input1);
+
+      //     // Append the inputDiv element to the document body
+      //     frmDiv.appendChild(inputDiv);
+
+      //   }
+      // });
 
 
       // Append the input element to the inputDiv element
       inputDiv.appendChild(input);
       inputDiv.appendChild(input1);
+
 
 
       // Increment the counter
@@ -283,13 +373,17 @@ async function showDeadlines(id) {
       input1.classList.add('form-control', 'Deadline', 'mb-3');
 
       // Set the required attribute of the input element
-      input.required = true;
+      // input.required = true;
       // }  
       // Save the value of k to local storage
       localStorage.setItem('k', k);
 
       // Append the inputDiv element to the document body
       frmDiv.appendChild(inputDiv);
+
+      //handle dropdown 
+
+
 
     }
   };
