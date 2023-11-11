@@ -3,6 +3,7 @@ const searchButton = document.querySelector('.search-button');
 const dropdown = document.querySelector('.dropdown');
 const cashOption = dropdown.querySelector('.cash');
 const monthsOption = dropdown.querySelector('.months');
+const semesterOption = dropdown.querySelector('.month-brefore-semester');
 const frmDiv = document.querySelector('.frmDiv');
 
 
@@ -350,6 +351,54 @@ async function showDeadlines(id) {
 
     // Create 4 input fields.
     for (let i = 0; i < 4; i++) {
+      const unitDiv = document.createElement('div');
+      unitDiv.classList.add('d-flex');
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = `Deadline${i + 1}`;
+      input.classList.add('form-control', 'Deadline', 'mb-3');
+      input.placeholder = 'Amount'; 
+      unitDiv.appendChild(input);
+      console.log(input.name);
+
+
+      const input1 = document.createElement('input');
+      input1.type = 'date';
+      input1.name = `Date${i + 1}`;
+      input1.classList.add('form-control', 'Deadline', 'mb-3');
+      unitDiv.appendChild(input1);
+
+      input.style.marginRight = '5px';
+      input1.style.marginLeft = '5px';
+
+      container.appendChild(unitDiv);
+    }
+
+    // Append the container to the DOM.
+    frmDiv.appendChild(container);
+
+    // Enable the input fields.
+    for (const input of container.querySelectorAll('input')) {
+      input.disabled = false;
+    }
+  });
+
+  //handle semesterOption 
+  semesterOption.addEventListener('click', () => {
+
+    const inputs = document.querySelectorAll('input');
+    for (const input of inputs) {
+      input.style.display = 'none';
+      input.disabled = true;
+    }
+
+    // Create a container for the input fields.
+    const container = document.createElement('div');
+    container.classList.add('input-container');
+
+    // Create 4 input fields.
+    for (let i = 0; i < 5; i++) {
       const unitDiv = document.createElement('div');
       unitDiv.classList.add('d-flex');
 
