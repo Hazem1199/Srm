@@ -1,5 +1,9 @@
 const searchInput = document.getElementsByName("search");
 const searchButton = document.querySelector('.search-button');
+const dropdown = document.querySelector('.dropdown');
+const cashOption = dropdown.querySelector('.cash');
+const monthsOption = dropdown.querySelector('.months');
+const frmDiv = document.querySelector('.frmDiv');
 
 
 async function getInfoDeadlines(id) {
@@ -221,7 +225,6 @@ async function showDeadlines(id) {
 
       tableBody.appendChild(newRow);
 
-      const frmDiv = document.querySelector('.frmDiv');
       // Create a new div element to store the inputs
       const inputDiv = document.createElement('div');
 
@@ -232,9 +235,6 @@ async function showDeadlines(id) {
       // Create a new input element
       const input = document.createElement('input');
       const input1 = document.createElement('input');
-      const dropdown = document.querySelector('.dropdown');
-      const cashOption = dropdown.querySelector('.cash');
-      const monthsOption = dropdown.querySelector('.months');
 
 
       // Set the value of the input element to the current value in the pushObj array
@@ -244,6 +244,7 @@ async function showDeadlines(id) {
 
       // Set the style width of the input element & flex
       inputDiv.style.display = ('flex');
+      inputDiv.classList.add('unitDiv');
       input.style.width = '50%';
       input1.style.width = '50%';
       input.style.marginRight = '5px';
@@ -289,62 +290,7 @@ async function showDeadlines(id) {
 
       });
 
-      //handle cash option 
-      // monthsOption.addEventListener('click', () => {
-      //   // Hide all input fields.
-      //   const inputs = document.querySelectorAll('input');
-      //   for (const input of inputs) {
-      //     input.style.display = 'none';
-      //     // input1.style.display = 'none';
-      //     input.disabled = true;
-      //     // input1.disabled = true;
-      //     // break;
-      //   }
 
-      //   // Enable the new input and input1 fields.
-      //   input.disabled = false;
-      //   input1.disabled = false;
-
-      //   for (let i = 0; i <= 4; i++) {
-
-      //     const input = document.createElement('input');
-      //     const input1 = document.createElement('input');
-
-
-      //     // Set the style width of the input element & flex
-      //     inputDiv.style.display = ('flex');
-      //     input.style.width = '50%';
-      //     input1.style.width = '50%';
-      //     input.style.marginRight = '5px';
-      //     input1.style.marginLeft = '5px';
-
-
-
-      //     // input.style.display = 'block';
-      //     // input1.style.display = 'block';
-
-      //     input1.type = 'Date';
-
-      //     input.value = ""
-      //     input1.value = ""
-
-      //     input.name = 'Deadline1';
-      //     input1.name = 'Date1';
-
-
-      //     // Set the class attribute of the input element
-      //     input.classList.add('form-control', 'Deadline', 'mb-3');
-      //     input1.classList.add('form-control', 'Deadline', 'mb-3');
-
-
-      //     inputDiv.appendChild(input);
-      //     inputDiv.appendChild(input1);
-
-      //     // Append the inputDiv element to the document body
-      //     frmDiv.appendChild(inputDiv);
-
-      //   }
-      // });
 
 
       // Append the input element to the inputDiv element
@@ -387,6 +333,55 @@ async function showDeadlines(id) {
 
     }
   };
+
+
+  //handle months option 
+  monthsOption.addEventListener('click', () => {
+
+    const inputs = document.querySelectorAll('input');
+    for (const input of inputs) {
+      input.style.display = 'none';
+      input.disabled = true;
+    }
+
+    // Create a container for the input fields.
+    const container = document.createElement('div');
+    container.classList.add('input-container');
+
+    // Create 4 input fields.
+    for (let i = 0; i < 4; i++) {
+      const unitDiv = document.createElement('div');
+      unitDiv.classList.add('d-flex');
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = `Deadline${i + 1}`;
+      input.classList.add('form-control', 'Deadline', 'mb-3');
+      input.placeholder = 'Amount'; 
+      unitDiv.appendChild(input);
+      console.log(input.name);
+
+
+      const input1 = document.createElement('input');
+      input1.type = 'date';
+      input1.name = `Date${i + 1}`;
+      input1.classList.add('form-control', 'Deadline', 'mb-3');
+      unitDiv.appendChild(input1);
+
+      input.style.marginRight = '5px';
+      input1.style.marginLeft = '5px';
+
+      container.appendChild(unitDiv);
+    }
+
+    // Append the container to the DOM.
+    frmDiv.appendChild(container);
+
+    // Enable the input fields.
+    for (const input of container.querySelectorAll('input')) {
+      input.disabled = false;
+    }
+  });
 
   console.log(pushObj.values());
   console.log(deadlineStatus);

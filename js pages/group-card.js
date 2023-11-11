@@ -57,7 +57,7 @@ function hide() {
 
 // plan function 
 async function displayPlanCard(id) {
-  change()
+  // change()
   // loadOn4()
   moduleCountElement.textContent = " ";
   const cards = await getInfoGroup(id);
@@ -83,7 +83,7 @@ async function displayPlanCard(id) {
 
   // module location 
 
-  hide()
+  // hide()
 }
 
 async function openPlan() {
@@ -197,6 +197,6 @@ seeMore4.addEventListener('click', () => {
 
 searchButton.addEventListener('click', () => {
   const id = searchInput[0].value;
-  displayPlanCard(id);
+  // displayPlanCard(id);
 });
 

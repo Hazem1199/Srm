@@ -168,7 +168,7 @@ var groupToPass;
 
 
 async function display(value) {
-  // change();
+  change();
   var users = await getData(value);
 
   users.forEach((element) => {
@@ -240,7 +240,7 @@ async function display(value) {
   // **Store the ID of the user to be passed to the other page outside of the forEach() loop**
 
   // Push the user ID to the anotherGlobalObject object
-  // hide();
+  hide();
 }
 
 
