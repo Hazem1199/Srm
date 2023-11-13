@@ -337,7 +337,7 @@ async function showDeadlines(id) {
 
 
   //handle months option 
-  monthsOption.addEventListener('click', () => {
+  semesterOption.addEventListener('click', () => {
 
     const inputs = document.querySelectorAll('input');
     for (const input of inputs) {
@@ -385,7 +385,7 @@ async function showDeadlines(id) {
   });
 
   //handle semesterOption 
-  semesterOption.addEventListener('click', () => {
+  monthsOption.addEventListener('click', () => {
 
     const inputs = document.querySelectorAll('input');
     for (const input of inputs) {
