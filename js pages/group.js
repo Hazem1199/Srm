@@ -1,5 +1,8 @@
 var loadingDiv = document.querySelector('.loading-div')
 var searchButton = document.querySelector(".search-button");
+// const frmModuleEdit1 = document.querySelector('#frmModuleEdit1');
+// const frmModuleEdit2 = document.querySelector('#frmModuleEdit2');
+const btnNext = document.querySelector('#btnNext');
 
 var overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -209,7 +212,7 @@ async function showAllGroup(id) {
       input.style.width = '50%';
       input1.style.width = '50%';
       input.style.marginRight = '5px';
-      input1.style.marginLeft = '5px';
+      input1.style.marginLeft = '10px';
 
       // Set the type of the input element to 'number'
       input.type = 'number';
@@ -269,22 +272,27 @@ async function showAllGroup(id) {
   }
 }
 
+btnNext.onclick = function () {
+  frmModuleEdit1.style.left = "-500px";
+  frmModuleEdit2.style.left = "15px";  
+  I}
+
 
 const alertMsg = document.querySelector('.alertMsg');
 
   //supmit  frmGroupEdit
-  jQuery('#frmModuleEdit').on('submit', function (e) {
+  jQuery('#frmModuleEdit2').on('submit', function (e) {
     e.preventDefault();
     jQuery.ajax({
       url: 'https://script.google.com/macros/s/AKfycbwe6pqKwdyIsqXBIhLLUlZBwKcGacB2txW2hCIGQv5jbiqI_HpJesmnTTr2sKYYYsLSsg/exec',
       type: 'post',
-      data: jQuery('#frmModuleEdit').serialize(),
+      data: jQuery('#frmModuleEdit2').serialize(),
       beforeSend: function () {
         var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
         jQuery('#spinner-container').html(spinner);
       },
       success: function (result) {
-        jQuery('#frmModuleEdit')[0].reset();
+        jQuery('#frmModuleEdit2')[0].reset();
         // Display success message here
         alertMsg.classList.add('alert', 'alert-success');
         alertMsg.style.width = '25%';
