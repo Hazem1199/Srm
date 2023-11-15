@@ -2300,27 +2300,47 @@ body {
 }
 
 /* form edit modules */
-.containerForm {
+.containerForm  {
   position: relative;
   height: 650px;
   overflow: hidden;
-
+  transition: 0.5s;
 }
 
-.containerForm form{
+/* .containerForm form{
   position: absolute;
   transition: 0.5s;
+  
 
-}
+} */
 
 
 
-#frmModuleEdit1{
+.frmDiv1{
   position: absolute;
+  width: 95%;
+  transition: 0.5s ease-in-out;
 }
 
-#frmModuleEdit2{
+.frmDiv2{
   position: absolute;
   left: -500px;
+  /* bottom:1px ; */
+  margin-top: 80px;
   width: 95%;
+  visibility: hidden;
+  transition: 0.5s ease-in-out;
 }
+
+.frmDiv1 {
+  position: relative;
+}
+
+.frmDiv1 button {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+}
+

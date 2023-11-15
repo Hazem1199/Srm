@@ -1,8 +1,11 @@
 var loadingDiv = document.querySelector('.loading-div')
 var searchButton = document.querySelector(".search-button");
-// const frmModuleEdit1 = document.querySelector('#frmModuleEdit1');
-// const frmModuleEdit2 = document.querySelector('#frmModuleEdit2');
+const frmDiv1 = document.querySelector('.frmDiv1');
+const frmDiv2 = document.querySelector('.frmDiv2');
 const btnNext = document.querySelector('#btnNext');
+const containerForm = document.querySelector('.containerForm');
+
+containerForm
 
 var overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -209,10 +212,11 @@ async function showAllGroup(id) {
 
       // Set the style width of the input element & flex
       inputDiv.style.display = ('flex');
-      input.style.width = '50%';
-      input1.style.width = '50%';
+      input.style.width = '60%';
+      input1.style.width = '60%';
       input.style.marginRight = '5px';
-      input1.style.marginLeft = '10px';
+      input.style.marginLeft = '15px';
+      input1.style.marginLeft = '15px';
 
       // Set the type of the input element to 'number'
       input.type = 'number';
@@ -273,26 +277,29 @@ async function showAllGroup(id) {
 }
 
 btnNext.onclick = function () {
-  frmModuleEdit1.style.left = "-500px";
-  frmModuleEdit2.style.left = "15px";  
-  I}
+  frmDiv1.style.left = "-500px";
+  frmDiv2.style.left = "15px";
+  frmDiv2.style.visibility = "visible";
+  containerForm.style.height = "380px";
+  }
 
 
 const alertMsg = document.querySelector('.alertMsg');
 
   //supmit  frmGroupEdit
-  jQuery('#frmModuleEdit2').on('submit', function (e) {
+  jQuery('#frmModuleEdit').on('submit', function (e) {
     e.preventDefault();
     jQuery.ajax({
       url: 'https://script.google.com/macros/s/AKfycbwe6pqKwdyIsqXBIhLLUlZBwKcGacB2txW2hCIGQv5jbiqI_HpJesmnTTr2sKYYYsLSsg/exec',
       type: 'post',
-      data: jQuery('#frmModuleEdit2').serialize(),
+      data: jQuery('#frmModuleEdit').serialize(),
       beforeSend: function () {
-        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        var spinner = '<div class="text-center" style="margin-left: 5px;"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
         jQuery('#spinner-container').html(spinner);
       },
       success: function (result) {
-        jQuery('#frmModuleEdit2')[0].reset();
+        jQuery('#frmModuleEdit')[0].reset();
         // Display success message here
         alertMsg.classList.add('alert', 'alert-success');
         alertMsg.style.width = '25%';
@@ -336,6 +343,7 @@ const alertMsg = document.querySelector('.alertMsg');
       }
     });
   });
+  
 
 
 
