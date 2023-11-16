@@ -143,6 +143,7 @@ async function showDeadlines(id) {
                         <label for="StudyType">Scholarship</label>
                       </div>
 
+                      
 
                       <div class="form-group mt-3 form-floating">
                         <textarea name="Note" class="form-control" placeholder="Nots" id="Textarea" rows="5"></textarea>
@@ -152,11 +153,11 @@ async function showDeadlines(id) {
                         <div class="error-message"></div>
                         <div dir="ltr" class="sent-message text-center alert alert-success d-none" id="success-msg">We will
                           connect to you , Thank's</div>
-                        <div id="spinner-container"></div>
+                        
                       </div>
                       <div class="d-flex justify-content-center ">
-                        <button class="btn btn-primary scrollto btn-info text-light" id="btnSubmit"
-                          type="submit">Send</button>
+                        <button class="btn btn-primary scrollto btn-info text-light d-flex" id="btnSubmit"
+                          type="submit">Send<div id="spinner-container"></div></button>
                       </div>
                   </form>
                 </div>
@@ -165,6 +166,7 @@ async function showDeadlines(id) {
           </div>
         </td>
       `;
+      
 
       const payBtn = newRow.querySelector('#payBtn');
       const first = tableBody.children[0]
@@ -262,12 +264,16 @@ async function showDeadlines(id) {
         // input1.disabled = true;
       }
 
+      const SelectDueDate1 = document.querySelector('#SelectDueDate1');
+
+
       //handle cash option 
       cashOption.addEventListener('click', () => {
         // Hide all input fields.
         const inputs = document.querySelectorAll('input');
         for (const input of inputs) {
           input.style.display = 'none';
+          SelectDueDate1.disabled = false;
           // input1.style.display = 'none';
           input.disabled = true;
           // input1.disabled = true;
@@ -342,6 +348,8 @@ async function showDeadlines(id) {
     const inputs = document.querySelectorAll('input');
     for (const input of inputs) {
       input.style.display = 'none';
+      SelectDueDate1.disabled = false;
+
       input.disabled = true;
     }
 
@@ -374,6 +382,7 @@ async function showDeadlines(id) {
 
       container.appendChild(unitDiv);
     }
+    
 
     // Append the container to the DOM.
     frmDiv.appendChild(container);
@@ -389,6 +398,8 @@ async function showDeadlines(id) {
 
     const inputs = document.querySelectorAll('input');
     for (const input of inputs) {
+      SelectDueDate1.disabled = false;
+
       input.style.display = 'none';
       input.disabled = true;
     }
@@ -443,7 +454,7 @@ async function showDeadlines(id) {
       type: 'post',
       data: jQuery('#frmDeadlineEdit').serialize(),
       beforeSend: function () {
-        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        var spinner = '<div class="text-center" style="margin-left: 5px;"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></div>';
         jQuery('#spinner-container').html(spinner);
       },
       success: function (result) {
@@ -506,7 +517,7 @@ async function showDeadlines(id) {
       type: 'post',
       data: jQuery('#frmSubmit').serialize(),
       beforeSend: function () {
-        var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+        var spinner = '<div class="text-center" style="margin-left: 5px;"><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div></div>';
         jQuery('#spinner-container').html(spinner);
       },
       success: function (result) {
