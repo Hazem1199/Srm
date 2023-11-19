@@ -2302,7 +2302,7 @@ body {
 /* form edit modules */
 .containerForm  {
   position: relative;
-  height: 650px;
+  height: 740px;
   overflow: hidden;
   transition: 0.5s;
 }
@@ -2338,7 +2338,7 @@ body {
 
 .frmDiv1 button {
   position: absolute;
-  bottom: -10%;
+  bottom: -5%;
   left: 50%;
   transform: translate(-50%, 50%);
   text-align: center;
