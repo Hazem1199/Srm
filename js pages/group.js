@@ -4,6 +4,8 @@ const frmDiv1 = document.querySelector('.frmDiv1');
 const frmDiv2 = document.querySelector('.frmDiv2');
 const btnNext = document.querySelector('#btnNext');
 const containerForm = document.querySelector('.containerForm');
+const StudentNum = document.querySelector('#StudentNum');
+
 
 containerForm
 
@@ -250,6 +252,9 @@ async function showAllGroup(id) {
 
       // Set the id attribute of the input element
       input.id = 'Group';
+      StudentNum.value = id;
+          // StudentNum.disabled = false;
+      
 
       // Set the class attribute of the input element
       input.classList.add('form-control', 'Group', 'mb-3');

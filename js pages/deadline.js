@@ -5,6 +5,8 @@ const cashOption = dropdown.querySelector('.cash');
 const monthsOption = dropdown.querySelector('.months');
 const semesterOption = dropdown.querySelector('.month-brefore-semester');
 const frmDiv = document.querySelector('.frmDiv');
+const StudentNum = document.querySelector('#StudentNum');
+
 
 
 async function getInfoDeadlines(id) {
@@ -166,7 +168,7 @@ async function showDeadlines(id) {
           </div>
         </td>
       `;
-      
+
 
       const payBtn = newRow.querySelector('#payBtn');
       const first = tableBody.children[0]
@@ -243,6 +245,7 @@ async function showDeadlines(id) {
       // Set the value of the input element to the current value in the pushObj array
       input.value = students[i].Amount;
       input1.value = student.DueDate;
+      document.querySelector('#StudentNum').value = id
 
 
       // Set the style width of the input element & flex
@@ -265,6 +268,7 @@ async function showDeadlines(id) {
       }
 
       const SelectDueDate1 = document.querySelector('#SelectDueDate1');
+      // document.querySelector('#StudentNum').value = id
 
 
       //handle cash option 
@@ -275,6 +279,9 @@ async function showDeadlines(id) {
           input.style.display = 'none';
           SelectDueDate1.disabled = false;
           // input1.style.display = 'none';
+          StudentNum.style.display = 'none';
+          StudentNum.disabled = false;
+
           input.disabled = true;
           // input1.disabled = true;
           // break;
@@ -284,6 +291,8 @@ async function showDeadlines(id) {
         input1.disabled = false;
 
         input1.type = 'Date';
+
+
 
 
         input.style.display = 'block';
@@ -349,9 +358,13 @@ async function showDeadlines(id) {
     for (const input of inputs) {
       input.style.display = 'none';
       SelectDueDate1.disabled = false;
+      StudentNum.style.display = 'none';
+          StudentNum.disabled = false;
 
       input.disabled = true;
     }
+
+
 
     // Create a container for the input fields.
     const container = document.createElement('div');
@@ -366,7 +379,7 @@ async function showDeadlines(id) {
       input.type = 'text';
       input.name = `Deadline${i + 1}`;
       input.classList.add('form-control', 'Deadline', 'mb-3');
-      input.placeholder = 'Amount'; 
+      input.placeholder = 'Amount';
       unitDiv.appendChild(input);
       console.log(input.name);
 
@@ -382,7 +395,7 @@ async function showDeadlines(id) {
 
       container.appendChild(unitDiv);
     }
-    
+
 
     // Append the container to the DOM.
     frmDiv.appendChild(container);
@@ -399,7 +412,8 @@ async function showDeadlines(id) {
     const inputs = document.querySelectorAll('input');
     for (const input of inputs) {
       SelectDueDate1.disabled = false;
-
+      StudentNum.style.display = 'none';
+          StudentNum.disabled = false;
       input.style.display = 'none';
       input.disabled = true;
     }
@@ -417,7 +431,7 @@ async function showDeadlines(id) {
       input.type = 'text';
       input.name = `Deadline${i + 1}`;
       input.classList.add('form-control', 'Deadline', 'mb-3');
-      input.placeholder = 'Amount'; 
+      input.placeholder = 'Amount';
       unitDiv.appendChild(input);
       console.log(input.name);
 
