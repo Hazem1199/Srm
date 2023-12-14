@@ -2344,6 +2344,27 @@ body {
   text-align: center;
 }
 
+.frmDiv2 #btnSubmit {
+  width: 25%;
+  position: absolute;
+  bottom: -5%;
+  left: 75%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+}
+
+
+
+
+.frmDiv2 #btnBack {
+  width: 25%;
+  position: absolute;
+  bottom: -5%;
+  left: 25%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+}
+
 #SelectDueDate1{
   display: block !important;
 

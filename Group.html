@@ -180,40 +180,45 @@
                             rows="5"></textarea>
                           <label for="Textarea" class="form-label">Nots</label>
                         </div> -->
-                        <button class="btn btn-primary scrollto btn-info text-light" type="button" id="btnNext">
-                          Next >
-                        </button>
+                          <button class="btn btn-primary scrollto btn-info text-light" type="button" id="btnNext">
+                            Next 
+                          </button>
+                          
 
                         </div>
-                        
+
                     </div>
 
-                    
+
 
 
                     <div class="form-group form-floating mb-3 frmDiv2 ">
-                      <div class="form-group form-floating"  style="display:none ;">
-                        <input name="Student Num" type="number" placeholder="Student Num" id="StudentNum"   
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="Student Num" type="number" placeholder="Student Num" id="StudentNum"
                           class="form-control">
                         <label for="StudentNum">Student Num</label>
                       </div>
+                      <div class="form-group form-floating" style="display:none ;">
+                        <input name="user" type="text" placeholder="Student Num" id="user" class="form-control">
+                        <label for="user">Student Num</label>
+                      </div>
                       <div class="form-group form-floating">
-                        <input name="Amount" type="text" placeholder="Amount" id="SelectDueDate"
+                        <input name="Amount" type="text" placeholder="Amount" id="SelectDueDate" required
                           class="form-control">
                         <label for="SelectDueDate">Amount</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="selectInvoiceType" name="Invoice type">
+                        <select class="form-select" id="selectInvoiceType" name="Invoice type" required>
                           <option selected></option>
                           <!-- <option value="Extend">Extend</option> -->
-                          <option value="Transfer" >Transfer</option>
+                          <option value="Transfer">Transfer</option>
                           <option value="Re-test">Re-test</option>
                           <option value="Re-entry">Re-entry</option>
                         </select>
                         <label for="selectInvoiceType">select Invoice type</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="floatingSelect" name="Cash type">
+                        <select class="form-select" id="floatingSelect" name="Cash type" required>
                           <option selected></option>
                           <option value="cash">cash</option>
                           <option value="Vodafone cash">Vodafone cash</option>
@@ -235,9 +240,13 @@
                       </div>
 
                       <div class="d-flex justify-content-center mt-3">
-                        <button class="btn btn-primary scrollto btn-info text-light d-flex" id="btnSubmit" type="submit">
-                          Edit Group 
-                        <div id="spinner-container"></div>
+                        <button class="btn btn-primary scrollto btn-info text-light d-flex justify-content-center" id="btnSubmit" type="submit">
+                          Submit
+                          <div id="spinner-container"></div>
+                        </button>
+
+                        <button class="btn btn-primary scrollto btn-info text-light" type="button" id="btnBack">
+                          Back
                         </button>
                       </div>
                     </div>

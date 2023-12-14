@@ -6,6 +6,8 @@ const monthsOption = dropdown.querySelector('.months');
 const semesterOption = dropdown.querySelector('.month-brefore-semester');
 const frmDiv = document.querySelector('.frmDiv');
 const StudentNum = document.querySelector('#StudentNum');
+var userr = localStorage.getItem("myCode");
+const user = document.querySelector('#user')
 
 
 
@@ -98,7 +100,7 @@ async function showDeadlines(id) {
                         <label for="floatingInput">Amount</label>
                       </div>
                       <div class="form-floating mt-3">
-                        <select class="form-select" id="floatingSelect" name="Cash type">
+                        <select class="form-select" id="floatingSelect" name="Cash type" required>
                           <option selected></option>
                           <option value="cash">cash</option>
                           <option value="Vodafone cash">Vodafone cash</option>
@@ -124,6 +126,11 @@ async function showDeadlines(id) {
                         <input name="Deadline Date" type="text" placeholder="Amount" id="SelectDueDate" class="form-control"  value =${students[i]['Due Date']} >
                         <label for="SelectDueDate">Amount</label>
                       </div>
+                      <div class="form-group form-floating"  style="display:none ;">
+                          <input name="user" type="text" placeholder="Student Num" id="user"   
+                            class="form-control">
+                          <label for="user">Student Num</label>
+                        </div>
                       <div class="form-group form-floating" style="display:none ;">
                         <input name="Student NUM" type="text" placeholder="Amount" id="StudentNUM" class="form-control" >
                         <label for="StudentNUM">Amount</label>
@@ -246,6 +253,7 @@ async function showDeadlines(id) {
       input.value = students[i].Amount;
       input1.value = student.DueDate;
       document.querySelector('#StudentNum').value = id
+      document.querySelector('#user').value = userr
 
 
       // Set the style width of the input element & flex
@@ -258,7 +266,22 @@ async function showDeadlines(id) {
 
       // Set the type of the input element to 'number'
       input.type = 'number';
-      // input1.type = 'Date';
+
+      const originalValue = input1.value;
+      const originalType = input1.type;
+
+      input1.onfocus = function () {
+        this.type = 'date';
+      };
+
+      input1.onblur = function () {
+        if (!this.value) {
+          this.type = originalType;
+          this.value = originalValue;
+        }
+      };
+
+
 
 
       if (student.Status === "paid") {
@@ -281,6 +304,8 @@ async function showDeadlines(id) {
           // input1.style.display = 'none';
           StudentNum.style.display = 'none';
           StudentNum.disabled = false;
+          user.style.display = 'none';
+          user.disabled = false;
 
           input.disabled = true;
           // input1.disabled = true;
@@ -359,7 +384,9 @@ async function showDeadlines(id) {
       input.style.display = 'none';
       SelectDueDate1.disabled = false;
       StudentNum.style.display = 'none';
-          StudentNum.disabled = false;
+      StudentNum.disabled = false;
+      user.style.display = 'none';
+      user.disabled = false;
 
       input.disabled = true;
     }
@@ -413,7 +440,9 @@ async function showDeadlines(id) {
     for (const input of inputs) {
       SelectDueDate1.disabled = false;
       StudentNum.style.display = 'none';
-          StudentNum.disabled = false;
+      StudentNum.disabled = false;
+      user.style.display = 'none';
+      user.disabled = false;
       input.style.display = 'none';
       input.disabled = true;
     }

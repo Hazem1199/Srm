@@ -3,11 +3,14 @@ var searchButton = document.querySelector(".search-button");
 const frmDiv1 = document.querySelector('.frmDiv1');
 const frmDiv2 = document.querySelector('.frmDiv2');
 const btnNext = document.querySelector('#btnNext');
+const btnBack = document.querySelector('#btnBack');
 const containerForm = document.querySelector('.containerForm');
 const StudentNum = document.querySelector('#StudentNum');
+const user = document.querySelector('#user');
 const ActuallyDate = document.querySelector(".ActuallyDate")
 const DateBySRM = document.querySelector(".DateBySRM")
 const by = document.querySelector(".by")
+var userr = localStorage.getItem("myCode");
 
 
 
@@ -205,11 +208,11 @@ async function showAllGroup(id) {
         }
 
 
-              // Save the group and formattedDate to session storage
-              sessionStorage.setItem('group', group);
-              sessionStorage.setItem('formattedDate', formattedDate);
-              console.log(group);
-              console.log(formattedDate);
+        // Save the group and formattedDate to session storage
+        sessionStorage.setItem('group', group);
+        sessionStorage.setItem('formattedDate', formattedDate);
+        console.log(group);
+        console.log(formattedDate);
 
 
         // Filter online push data based on module
@@ -225,7 +228,7 @@ async function showAllGroup(id) {
           // Format the dates
           var formattedActuallySendingDate = ActuallySendingDate.toLocaleDateString('en-GB', options);
           var formattedActuallySendingDateBySRM = isValidDate(ActuallySendingDateBySRM) ? ActuallySendingDateBySRM.toLocaleDateString('en-GB', options) : "";
-          
+
           var User = filteredData[0].User;
           console.log(formattedActuallySendingDate);
         } else {
@@ -293,6 +296,20 @@ async function showAllGroup(id) {
         input1.value = formattedDatee;
 
 
+        const originalValue = input1.value;
+        const originalType = input1.type;
+
+        input1.onfocus = function () {
+          this.type = 'date';
+        };
+
+        input1.onblur = function () {
+          if (!this.value) {
+            this.type = originalType;
+            this.value = originalValue;
+          }
+        };
+
         // Set the style width of the input element & flex
         inputDiv.style.display = ('flex');
         input.style.width = '60%';
@@ -334,6 +351,7 @@ async function showAllGroup(id) {
         // Set the id attribute of the input element
         input.id = 'Group';
         StudentNum.value = id;
+        user.value = userr;
         // StudentNum.disabled = false;
 
 
@@ -370,6 +388,14 @@ btnNext.onclick = function () {
   frmDiv2.style.left = "15px";
   frmDiv2.style.visibility = "visible";
   containerForm.style.height = "380px";
+}
+
+btnBack.onclick = function () {
+  frmDiv2.style.left = "-500px";
+  frmDiv1.style.left = "15px";
+  frmDiv1.style.visibility = "visible";
+  frmDiv2.style.visibility = "hidden";
+  containerForm.style.height = "740px";
 }
 
 
