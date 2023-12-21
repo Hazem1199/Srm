@@ -92,15 +92,38 @@ function hide() {
   loadingDiv.style.display = "none";
 }
 
+// async function getData(id) {
+//   const response = await fetch('https://script.google.com/macros/s/AKfycbymvGsPp4SI9ISw_44dT20HpWZ1RXOlqdHyoRzKiNrxKOBWOscAFYnDBeWU3c5n6i_hmA/exec', {
+//     method: 'POST',
+//     body: JSON.stringify({ "id": id })
+//   })
+//   var data = await response.json();
+//   console.log("data" + data);
+//   return data;
+// }
+
 async function getData(id) {
   const response = await fetch('https://script.google.com/macros/s/AKfycbymvGsPp4SI9ISw_44dT20HpWZ1RXOlqdHyoRzKiNrxKOBWOscAFYnDBeWU3c5n6i_hmA/exec', {
     method: 'POST',
     body: JSON.stringify({ "id": id })
-  })
-  var data = await response.json();
-  console.log("data" + data);
-  return data;
+  });
+
+  // Check if the response is successful (status code 200)
+  if (response.ok) {
+    try {
+      const data = await response.json();
+      console.log("data", data);
+      return data;
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return null; // Return null in case of JSON parsing error
+    }
+  } else {
+    console.error("Error fetching data. Status:", response.status);
+    return null; // Return null in case of non-successful response
+  }
 }
+
 
 
 
@@ -171,6 +194,48 @@ async function display(value) {
   change();
   var users = await getData(value);
 
+  if (users == "") {
+    console.log("ID not found or there was an error.");
+    const alertMessage = document.createElement("div");
+    alertMessage.classList.add("alert", "alert-danger");
+    alertMessage.textContent = "Please enter a valid Student Id";
+    alertMessage.style.width = "50%";
+    alertMessage.style.margin = "0 auto";
+    alertMessage.style.display = "flex";
+    alertMessage.style.alignItems = "center";
+    alertMessage.style.justifyContent = "center";
+    const section2 = document.querySelector(".section2");
+    section2.appendChild(alertMessage);
+
+    // Hide the alert message after half a second
+    setTimeout(() => {
+      alertMessage.style.display = "none";
+    }, 2000);
+    fName.innerHTML ="";
+    ID.innerHTML = "";
+    Email.innerHTML = "";
+    emailcrd.innerHTML = "";
+    Phone.innerHTML = "";
+    headName.innerHTML = "";
+    IdNumber.innerHTML = "";
+    DOB.innerHTML = "";
+    Grade.innerHTML = "";
+    Scholarship.innerHTML = "";
+    Receptionist.innerHTML = "";
+    Reserver.innerHTML = "";
+    CCAgent.innerHTML = "";
+    ReservationDate.innerHTML = "";
+    Schadule.innerHTML = 0;
+    Payments.innerHTML = 0;
+    Papers.innerHTML = 0;
+    Requestss.innerHTML = 0;
+    Complaintss.innerHTML = 0;
+  } else {
+    // Process the data when it is not null
+    console.log("Data:", users);
+  }
+  
+
   users.forEach((element) => {
     // Initialize the variable `user`
     var user = {
@@ -234,8 +299,8 @@ async function display(value) {
     sessionStorage.setItem("groupToPass", groupToPass);
 
   });
-    
-    
+
+
 
   // **Store the ID of the user to be passed to the other page outside of the forEach() loop**
 
@@ -368,7 +433,7 @@ searchButton.addEventListener("click", (e) => {
   // sessionStorage.clear();
   const value = searchInput[0].value;
   console.log("value :" + value);
-  if (value.trim() === "") {
+  if (value.trim() === "" || isNaN(value) || value == null) {
     // Create a Bootstrap alert message
     const alertMessage = document.createElement("div");
     alertMessage.classList.add("alert", "alert-danger");
@@ -386,14 +451,25 @@ searchButton.addEventListener("click", (e) => {
       alertMessage.style.display = "none";
     }, 2000);
     //display all boxes in this case
-    fName.innerHTML = " ";
-    ID.innerHTML = " ";
-    Email.innerHTML = " ";
-    Phone.innerHTML = " ";
-    headName.innerHTML = " ";
-    pic.src = " ";
-    moduleCountElement.textContent = "0 / 0";
-    numDeadline.textContent = "0 / 0";
+    fName.innerHTML ="";
+    ID.innerHTML = "";
+    Email.innerHTML = "";
+    emailcrd.innerHTML = "";
+    Phone.innerHTML = "";
+    headName.innerHTML = "";
+    IdNumber.innerHTML = "";
+    DOB.innerHTML = "";
+    Grade.innerHTML = "";
+    Scholarship.innerHTML = "";
+    Receptionist.innerHTML = "";
+    Reserver.innerHTML = "";
+    CCAgent.innerHTML = "";
+    ReservationDate.innerHTML = "";
+    Schadule.innerHTML = 0;
+    Payments.innerHTML = 0;
+    Papers.innerHTML = 0;
+    Requestss.innerHTML = 0;
+    Complaintss.innerHTML = 0;
     // footer3.textContent = "No deadlines found";
 
 

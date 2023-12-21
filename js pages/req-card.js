@@ -183,13 +183,3 @@ seeMore1.addEventListener('click', () => {
   }
 });
 
-searchButton.addEventListener("click", () => {
-  const id = searchInput[0].value;
-  if (id.trim() === "" || isNaN(id) || id.charAt(0) !== "2") {
-    numRequest.textContent = 0;
-    // cardFooter1.textContent = "Can't Find any request";
-  } else {
-    showRequests(id);
-  }
-  // showLastRequest(id);
-});
