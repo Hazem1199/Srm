@@ -37,6 +37,9 @@ const Payments = document.querySelector('.Payments')
 const Papers = document.querySelector('.Papers')
 const Requestss = document.querySelector('.Requestss')
 const Complaintss = document.querySelector('.Complaintss')
+const Employee = document.querySelector('#Employee')
+const StudentNum = document.querySelector('#StudentNum')
+const shareSubmit = document.querySelector('.shareSubmit')
 // const back = history.back();
 
 const userRole = localStorage.getItem('myUserRole');
@@ -124,6 +127,14 @@ async function getData(id) {
   }
 }
 
+// fetch data for online share
+async function getOnlineShare() {
+  const url = `https://script.google.com/macros/s/AKfycbzqynDvb0be4pYbRhejKj3OZMzBp_ks37fxgRqZ9CmWCIr0g2r-JyqFqpqF8rBUIgzv/exec`;
+  response = await fetch(url);
+  moduledata = await response.json();
+  console.log(moduledata);
+  return moduledata;
+}
 
 
 
@@ -188,6 +199,7 @@ var idToPass = 0;
 var ScholarshipToPass;
 var ReceptionistToPass;
 var groupToPass;
+var emailToPass;
 
 
 async function display(value) {
@@ -211,7 +223,7 @@ async function display(value) {
     setTimeout(() => {
       alertMessage.style.display = "none";
     }, 2000);
-    fName.innerHTML ="";
+    fName.innerHTML = "";
     ID.innerHTML = "";
     Email.innerHTML = "";
     emailcrd.innerHTML = "";
@@ -234,7 +246,7 @@ async function display(value) {
     // Process the data when it is not null
     console.log("Data:", users);
   }
-  
+
 
   users.forEach((element) => {
     // Initialize the variable `user`
@@ -295,14 +307,31 @@ async function display(value) {
     sessionStorage.setItem("idToPass", idToPass);
     sessionStorage.setItem("ScholarshipToPass", ScholarshipToPass);
     sessionStorage.setItem("ReceptionistToPass", ReceptionistToPass);
+    emailToPass = user.Email
+    sessionStorage.setItem("emailToPass", emailToPass);
     groupToPass = user.StudyType;
     sessionStorage.setItem("groupToPass", groupToPass);
 
   });
 
+  console.log("email : " + emailToPass);
 
+  await selectEmail()
+  await selectModule()
+  const ShareEnd = document.querySelector('.ShareEnd');
 
-  // **Store the ID of the user to be passed to the other page outside of the forEach() loop**
+  // Get the current date
+  const currentDate = new Date();
+  
+  // Add 30 days to the current date
+  const futureDate = new Date(currentDate);
+  futureDate.setDate(currentDate.getDate() + 30);
+  
+  // Convert the future date to dd/mm/yyyy format
+  const formattedFutureDate = futureDate.toLocaleDateString('en-GB');
+  
+  // Display the result
+  ShareEnd.innerHTML = "share End : " + formattedFutureDate;
 
   // Push the user ID to the anotherGlobalObject object
   hide();
@@ -323,6 +352,65 @@ moreBtn.addEventListener('click', () => {
   emailcrd.style.display = "block";
   // emailcrd.style.display = emailcrd.style.display === 'none' ? 'block' : 'none';
 });
+
+// select email function for online share
+async function selectEmail() {
+  const emailSelect = document.querySelector('#emailSelect');
+  let getEmail = sessionStorage.getItem('emailToPass');
+  console.log("getEmail : " + getEmail);
+  // Clear existing options
+  emailSelect.innerHTML = "";
+  // Split multiple email addresses and push them into an array
+  const emailArray = getEmail.split(',').map(email => email.trim());
+
+  console.log("Email Array:", emailArray);
+
+  emailArray.forEach(email => {
+    const option = document.createElement('option');
+    option.text = email;
+    option.value = email;
+    emailSelect.appendChild(option);
+  });
+}
+
+
+
+async function selectModule() {
+  const ModuleSelect = document.querySelector('#ModuleSelect');
+  const ModuleCodeSelect = document.querySelector('#ModuleCodeSelect');
+  let getModule = await getOnlineShare();
+  console.log("getModule : " + getModule);
+
+  getModule.forEach((element) => {
+    var modules = {
+      Module: element.Module,
+      ModuleCode: element["Module Code"],
+    }
+    const option = document.createElement('option');
+    option.text = modules.Module.toLowerCase(); // Assuming you want module names in lowercase
+    option.value = modules.Module;
+    ModuleSelect.appendChild(option);
+    ModuleSelect.addEventListener('change', () => {
+      if (ModuleSelect.value === modules.Module) {
+
+        ModuleCodeSelect.value = modules.ModuleCode;
+      }
+
+    });
+
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // console.log("userID1 : "+element.ID);
 // console.log("userID1 : " + GlobalObject.userID);
@@ -451,7 +539,7 @@ searchButton.addEventListener("click", (e) => {
       alertMessage.style.display = "none";
     }, 2000);
     //display all boxes in this case
-    fName.innerHTML ="";
+    fName.innerHTML = "";
     ID.innerHTML = "";
     Email.innerHTML = "";
     emailcrd.innerHTML = "";
@@ -480,6 +568,7 @@ searchButton.addEventListener("click", (e) => {
     sessionStorage.clear();
     display(value);
     moreEmail()
+
     // displayDeadCard(value);
     // displayPlanCard(value)
   }
@@ -599,6 +688,30 @@ jQuery('#digitalId').on('submit', function (e) {
 });
 const alertMsg = document.querySelector('.alertMsg');
 
+shareSubmit.addEventListener('click', () => {
+  // Get the id from session storage.
+  const id = sessionStorage.getItem('idToPass');
+
+  // Check if the id is empty.
+  if (!id) {
+    // Return from the function to stop it from executing.
+    return;
+  }
+
+  // Continue with the rest of the function code.
+  const Timestamp = document.querySelector('#Timestamp');
+  const timestamp = new Date();
+  // Convert the timestamp to dd/mm/yyyy format.
+  const formattedDate = timestamp.toLocaleString('en-GB');
+
+  // Set the Timestamp1 input field to the formatted date.
+  Timestamp.value = formattedDate;
+  StudentNum.value = id;
+  Employee.value = userr;
+})
+
+
+
 const digitalIdBtn = document.querySelector('.digitalIdBtn');
 // if (userRole === "System") {
 //   digitalIdBtn.style.display = "none";
@@ -699,6 +812,77 @@ jQuery('#App').on('submit', function (e) {
   });
 });
 
+frmOnlineShare
+
+// for App btn 
+jQuery('#frmOnlineShare').on('submit', function (e) {
+  e.preventDefault();
+  jQuery.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbxlb0mRkFopP6ngJDTxOVnaItOvvikJAg6GjrHb_Ajl0WMxYY9SPpHpXjnpBc_Pjvy1tg/exec',
+    type: 'post',
+    data: jQuery('#frmOnlineShare').serialize(),
+    beforeSend: function () {
+      var spinner = '<div class="text-center appSpi ml-2" ><div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden"></span></div></div>';
+      jQuery('#spinner-container2').html(spinner);
+    },
+    success: function (result) {
+      jQuery('#frmOnlineShare')[0].reset();
+      // Display success message here
+      // alertMsg.classList.add('alert', 'alert-success');
+      // Check if id is empty
+      const id = sessionStorage.getItem("idToPass");
+      if (id === null || id === '') {
+        alertMsg.classList.add('alert', 'alert-danger');
+        alertMsg.innerHTML = '<strong>Error!</strong> Please Enter Invalid Id .';
+        alertMsg.style.display = 'block';
+      } else {
+        alertMsg.classList.remove('alert', 'alert-danger');
+        alertMsg.classList.add('alert', 'alert-success');
+        alertMsg.innerHTML = '<strong>Success!</strong> Send successfully.';
+        alertMsg.style.display = 'block';
+      }
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      // alertMsg.innerHTML = '<strong>Success!</strong> QR Code Send successfully.';
+      // alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+
+      }, 2000);
+    },
+    error: function () {
+      // Display error message here
+      alertMsg.classList.add('alert', 'alert-danger');
+      alertMsg.style.width = '25%';
+      alertMsg.style.position = 'fixed';
+      alertMsg.style.top = '0';
+      alertMsg.style.left = '38%';
+      alertMsg.style.margin = '20px';
+      alertMsg.style.transition = "all 0.5s ease-in-out";
+      alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+      alertMsg.style.display = "block";
+      alertMsg.style.opacity = "0";
+      setTimeout(function () {
+        alertMsg.style.opacity = "1";
+      }, 10);
+      setTimeout(function () {
+        alertMsg.style.display = "none";
+      }, 2000);
+    },
+    complete: function () {
+      jQuery('#spinner-container2').empty();
+    }
+  });
+});
+
 // access for role
 const appBtn = document.querySelector('.appBtn');
 // console.log(userRole);
@@ -767,3 +951,4 @@ var userr = localStorage.getItem("myCode");
 console.log(userr);
 
 welcome.innerHTML = `Welcome ${userr}!`
+

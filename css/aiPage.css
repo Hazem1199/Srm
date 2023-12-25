@@ -63,6 +63,7 @@ body.show-chatbot .chatbot {
 .chatbot header {
   padding: 16px 0;
   position: relative;
+  top: 37px;
   text-align: center;
   color: #fff;
   background: #724ae8;
@@ -82,7 +83,7 @@ header h2 {
 .chatbot .chatbox {
   overflow-y: auto;
   height: 510px;
-  padding: 30px 20px 100px;
+  /* padding: 30px 20px 100px; */
 }
 .chatbot :where(.chatbox, textarea)::-webkit-scrollbar {
   width: 6px;
@@ -191,4 +192,8 @@ header h2 {
   .chatbot header span {
     display: block;
   }
+}
+
+.chat-header{
+  display: none !important;
 }

@@ -152,7 +152,7 @@ async function getInvoice(id) {
     return data;
 }
 
-
+var serialToPass;
 
 
 
@@ -182,11 +182,13 @@ async function showInvoice(value) {
                 const noteCell = document.createElement('td');
                 const serialCell = document.createElement('td');
                 const InvoiceTypeCell = document.createElement('td');
+                const sendBtn = document.createElement('td');
                 newRow.appendChild(timeCell);
                 newRow.appendChild(noteCell);
                 newRow.appendChild(AmountCell);
                 newRow.appendChild(serialCell);
                 newRow.appendChild(InvoiceTypeCell);
+                newRow.appendChild(sendBtn);
                 // Format the timestamp
                 const options = { year: 'numeric', month: 'short', day: 'numeric' };
                 const formattedTimestamp = new Date(studentInvoice.Timestamp).toLocaleDateString('en-US', options);
@@ -197,6 +199,28 @@ async function showInvoice(value) {
                 AmountCell.innerHTML = studentInvoice.Amount;
                 serialCell.innerHTML = studentInvoice.autoSerial;
                 InvoiceTypeCell.innerHTML = studentInvoice.InvoiceType;
+                serialToPass = studentInvoice.autoSerial;
+                sessionStorage.setItem('serialToPass', serialToPass);
+
+
+
+
+
+                sendBtn.innerHTML = `
+                <form method="POST" class="frmSendInvoice">
+                <input type="text" name="Serial" class ="Serial">
+                <input type="text" name="Timestamp" class ="Timestamp"> 
+                <input type="text" name="Employee" class ="Employee"> 
+                <input type="number" name="Student Num" class ="StudentNum"> 
+                    <button type="submit" class="btn btn-primary btnSend" id="btnSend">Send
+                    <div id="spinner-container"></div> 
+                    </button>
+                </form>
+                    `;
+
+
+
+
 
                 // Add conditional statement to change background color
                 if (studentInvoice.autoSerial.includes("R")) {
@@ -210,6 +234,95 @@ async function showInvoice(value) {
                 tbodyInvoice.appendChild(newRow);
             }
         });
+
+        const btnSend = document.querySelector('.btnSend');
+        if (btnSend) {
+            btnSend.addEventListener('click', () => {
+                // Get the id from session storage.
+                const id = sessionStorage.getItem('idToPass');
+                const serial = sessionStorage.getItem('serialToPass');
+                const userr = localStorage.getItem('myCode');
+                const Serial = document.querySelector('.Serial');
+                const Timestamp = document.querySelector('.Timestamp');
+                const Employee = document.querySelector('.Employee');
+                const StudentNum = document.querySelector('.StudentNum');
+    
+                // Check if the id is empty.
+                if (!id) {
+                    // Return from the function to stop it from executing.
+                    return;
+                }
+    
+                // Continue with the rest of the function code.
+                const timestamp = new Date();
+                // Convert the timestamp to dd/mm/yyyy format.
+                const formattedDate = timestamp.toLocaleString('en-GB');
+    
+                // Set the Timestamp1 input field to the formatted date.
+                Timestamp.value = formattedDate;
+                StudentNum.value = id;
+                Employee.value = userr;
+                Serial.value = serial;
+            })
+        }
+
+        
+
+        // submit form for send invoice 
+        jQuery('.frmSendInvoice').on('submit', function (e) {
+            e.preventDefault();
+            jQuery.ajax({
+                url: 'https://script.google.com/macros/s/AKfycbzTAKWJzyoVUQkJvN2vQLC6vEgTSIPlq2lFvnh45pIs1Avjy9aYXxXi3FtXL_08pyOVmg/exec',
+                type: 'post',
+                data: jQuery('.frmSendInvoice').serialize(),
+                beforeSend: function () {
+                    var spinner = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+                    jQuery('#spinner-container').html(spinner);
+                },
+                success: function (result) {
+                    jQuery('.frmSendInvoice')[0].reset();
+                    // Display success message here
+                    alertMsg.classList.add('alert', 'alert-success');
+                    alertMsg.style.width = '25%';
+                    alertMsg.style.position = 'fixed';
+                    alertMsg.style.top = '0';
+                    alertMsg.style.left = '0';
+                    alertMsg.style.margin = '20px';
+                    alertMsg.style.transition = "all 0.5s ease-in-out";
+                    alertMsg.innerHTML = '<strong>Success!</strong> Payment added successfully.';
+                    alertMsg.style.display = "block";
+                    alertMsg.style.opacity = "0";
+                    setTimeout(function () {
+                        alertMsg.style.opacity = "1";
+                    }, 10);
+                    setTimeout(function () {
+                        alertMsg.style.display = "none";
+                    }, 2000);
+                },
+                error: function () {
+                    // Display error message here
+                    alertMsg.classList.add('alert', 'alert-danger');
+                    alertMsg.style.width = '25%';
+                    alertMsg.style.position = 'fixed';
+                    alertMsg.style.top = '0';
+                    alertMsg.style.left = '0';
+                    alertMsg.style.transition = "all 0.5s ease-in-out";
+                    alertMsg.innerHTML = '<strong>Error!</strong> An error occurred. Please try again.';
+                    alertMsg.style.display = "block";
+                    alertMsg.style.opacity = "0";
+                    setTimeout(function () {
+                        alertMsg.style.opacity = "1";
+                    }, 10);
+                    setTimeout(function () {
+                        alertMsg.style.display = "none";
+                    }, 2000);
+                },
+                complete: function () {
+                    jQuery('#spinner-container').empty();
+                }
+            });
+        });
+
         hide();
 
 
@@ -218,6 +331,8 @@ async function showInvoice(value) {
     }
 
 }
+
+
 
 
 
@@ -236,6 +351,9 @@ const payBtnInvoice = document.querySelector('#payBtnInvoice');
 
 
 const alertMsg = document.querySelector('.alertMsg');
+
+
+//submit from for invoice
 jQuery('#frmSubmit').on('submit', function (e) {
     e.preventDefault();
     jQuery.ajax({
@@ -297,7 +415,7 @@ payBtnInvoice.addEventListener('click', () => {
     const ReceptionistToPass = sessionStorage.getItem("ReceptionistToPass");
     const groupToPass = sessionStorage.getItem("groupToPass");
 
-    console.log(id , ScholarshipToPass , ReceptionistToPass ,groupToPass );
+    console.log(id, ScholarshipToPass, ReceptionistToPass, groupToPass);
 
     // Get the "SelectDueDate" element. 
     const StudentNUM = document.querySelector('#StudentNUM');
@@ -430,8 +548,6 @@ window.onload = function () {
     }
 };
 
+// var user = localStorage.getItem("myUser");
 
-const welcome = document.querySelector('.Welcome');
-var user = localStorage.getItem("myUser");
 
-welcome.innerHTML = `Welcome ${user}!`

@@ -171,6 +171,86 @@
         </form>
         <!-- <button type="submit" class="btn btn-outline-primary mx-3 digitalId">Primary</button> -->
         <!-- <button class="learn-more digitalId" ><iconify-icon icon="mingcute:faceid-fill" style="color: #0b6fa4;" width="25" height="25" flip="horizontal"></iconify-icon> Qr Code </button> -->
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal1" id="digitalId" type="submit"
+          class="btn button digitalIdBtn mx-1"><iconify-icon class="qrIcon mx-1" icon="bi:share" width="23"
+            height="23"></iconify-icon>
+          <p class="mb-0">Online Share</p>
+          <div id="spinner-container"></div>
+        </button> 
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="alertMsg"></div>
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Please Fillfull All Inputs
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <form method="POST" id="frmOnlineShare">
+                  <div class="form-group form-floating mb-3 frmDiv ">
+
+                    <div class="form-floating mt-3">
+                      <select class="form-select" id="emailSelect" name="Email" required>
+                        <!-- code come from iterate -->
+                      </select>
+                        <label for="emailSelect">select Email</label>
+                      </div>
+
+                    <div class="form-floating mt-3">
+                      <select class="form-select" id="ModuleSelect" name="Module" required>
+                        <!-- code come from iterate -->
+                      </select>
+                      <label for="ModuleSelect">select Module</label>
+                    </div>
+
+                    <div class="form-group form-floating mt-3">
+                      <input name="Module Code" type="text" id="ModuleCodeSelect" class="form-control">
+                      <label for="ModuleCodeSelect">Module Code</label>
+                    </div>
+
+                    <div class="form-group form-floating mt-3" style="display:none ;">
+                      <input name="Employee" type="text" id="Employee" class="form-control">
+                      <label for="Employee">Employee</label>  
+                    </div>
+                  </div>
+
+                  <div class="form-group form-floating" style="display:none ;">
+                    <input name="Student Num" type="number" placeholder="Student Num" id="StudentNum"
+                      class="form-control">
+                    <label for="StudentNum">Student Num</label>
+                  </div>
+
+
+
+                  <div class="form-group form-floating" style="display:none ;">
+                    <input name="Timestamp" type="text" placeholder="Student Num" id="Timestamp" class="form-control">
+                    <label for="Timestamp">Student Nu m</label>
+                  </div>
+
+                  <div>
+                    <h4 class="ShareEnd"></h4>
+                  </div>
+
+                  
+                  <div class="my-3">
+                    <div class="error-message"></div>
+                    <div dir="ltr" class="sent-message text-center alert alert-success d-none" id="msg"></div>
+
+                  </div>
+                  <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-primary scrollto btn-info text-light d-flex shareSubmit" id="btnSubmit" type="submit">
+                      Submit
+                      <div id="spinner-container2"></div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <form method="POST" id="digitalId">
           <button id="digitalId" type="submit" class="btn button digitalIdBtn mx-1"><iconify-icon class="qrIcon mx-1"
               icon="bi:qr-code" width="23" height="23"></iconify-icon>
@@ -191,6 +271,7 @@
             <label for="Timestamp">Scholarship</label>
           </div>
         </form>
+        
         <form method="POST" id="App">
           <button id="digitalId" type="submit" class="btn button appBtn mx-3"><iconify-icon class="qrIcon mx-1"
               icon="ic:twotone-app-shortcut" width="23" height="23"></iconify-icon>
